@@ -6,18 +6,41 @@ const videos = [
 
 const gallery = document.getElementById("gallery");
 
+const videosByYear = {};
 videos.forEach(video => {
-  const base = video.file.replace(".mp4", "");
-  const thumb = `${base}_img.jpg`;
-
-  const a = document.createElement("a");
-  a.href = `player.html?video=${encodeURIComponent(video.file)}`;
-  a.className = "thumb";
-
-  a.innerHTML = `
-    <img src="${thumb}" alt="miniatura">
-    <span>${video.title}</span>
-  `;
-
-  gallery.appendChild(a);
+  const yearPrefix = video.file.slice(0, 2);
+  const year = `20${yearPrefix}`;
+  if (!videosByYear[year]) {
+    videosByYear[year] = [];
+  }
+  videosByYear[year].push(video);
 });
+
+Object.keys(videosByYear)
+  .sort((a, b) => b.localeCompare(a))
+  .forEach(year => {
+    const heading = document.createElement("h2");
+    heading.textContent = year;
+    heading.className = "year-heading";
+    gallery.appendChild(heading);
+
+    const grid = document.createElement("div");
+    grid.className = "grid";
+    gallery.appendChild(grid);
+
+    videosByYear[year].forEach(video => {
+      const base = video.file.replace(".mp4", "");
+      const thumb = `${base}_img.jpg`;
+
+      const a = document.createElement("a");
+      a.href = `player.html?video=${encodeURIComponent(video.file)}`;
+      a.className = "thumb";
+
+      a.innerHTML = `
+        <img src="${thumb}" alt="miniatura">
+        <span>${video.title}</span>
+      `;
+
+      grid.appendChild(a);
+    });
+  });
