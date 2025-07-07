@@ -1,0 +1,36 @@
+body {
+  background: #111;
+  color: white;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+h1 {
+  margin-top: 20px;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.thumb {
+  width: 300px;
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+}
+
+.thumb img {
+  width: 100%;
+  border-radius: 8px;
+  border: 2px solid #444;
+}
+
+.thumb span {
+  display: block;
+  margin-top: 8px;
+}
