@@ -5,39 +5,17 @@ body {
   text-align: center;
 }
 
-nav {
-  background: #222;
-  padding: 10px 0;
-}
-
 h1 {
   margin: 0;
 }
 
-.grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  padding: 20px;
-}
-
 .thumb {
-  width: 300px;
   cursor: pointer;
-  text-decoration: none;
-  color: white;
 }
 
 .thumb img {
-  width: 100%;
   border-radius: 8px;
   border: 2px solid #444;
-}
-
-.thumb span {
-  display: block;
-  margin-top: 8px;
 }
 
 .year-heading {
