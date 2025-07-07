@@ -21,26 +21,32 @@ Object.keys(videosByYear)
   .forEach(year => {
     const heading = document.createElement("h2");
     heading.textContent = year;
-    heading.className = "year-heading";
+    heading.className = "year-heading mt-4";
     gallery.appendChild(heading);
 
     const grid = document.createElement("div");
-    grid.className = "grid";
+    grid.className = "row g-3";
     gallery.appendChild(grid);
 
     videosByYear[year].forEach(video => {
       const base = video.file.replace(".mp4", "");
       const thumb = `${base}_img.jpg`;
 
+      const col = document.createElement("div");
+      col.className = "col-sm-6 col-md-4 col-lg-3";
+
       const a = document.createElement("a");
       a.href = `player.html?video=${encodeURIComponent(video.file)}`;
-      a.className = "thumb";
+      a.className = "thumb card bg-dark text-white text-decoration-none";
 
       a.innerHTML = `
-        <img src="${thumb}" alt="miniatura">
-        <span>${video.title}</span>
+        <img src="${thumb}" class="card-img-top" alt="miniatura">
+        <div class="card-body p-2">
+          <p class="card-text mb-0">${video.title}</p>
+        </div>
       `;
 
-      grid.appendChild(a);
+      col.appendChild(a);
+      grid.appendChild(col);
     });
   });
