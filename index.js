@@ -33,7 +33,8 @@ Object.keys(videosByYear)
       const thumb = `${base}_img.jpg`;
 
       const col = document.createElement("div");
-      col.className = "col-sm-6 col-md-4 col-lg-3";
+      // Two columns on mobile, four columns on desktop
+      col.className = "col-6 col-lg-3";
 
       const a = document.createElement("a");
       a.href = `player.html?video=${encodeURIComponent(video.file)}`;
