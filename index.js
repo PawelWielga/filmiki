@@ -14,50 +14,46 @@ const videos = [
   { file: "25.07_Budapeszt.mp4", title: "Budapeszt | 1-5 lipca 2025 |" },
 ];
 
-const gallery = document.getElementById("gallery");
-
-const videosByYear = {};
-videos.forEach(video => {
-  const yearPrefix = video.file.slice(0, 2);
-  const year = `20${yearPrefix}`;
-  if (!videosByYear[year]) {
-    videosByYear[year] = [];
-  }
-  videosByYear[year].push(video);
-});
-
-Object.keys(videosByYear)
-  .sort((a, b) => b.localeCompare(a))
-  .forEach(year => {
-    const heading = document.createElement("h2");
-    heading.textContent = year;
-    heading.className = "year-heading mt-4";
-    gallery.appendChild(heading);
-
-    const grid = document.createElement("div");
-    grid.className = "row g-3";
-    gallery.appendChild(grid);
-
-    videosByYear[year].forEach(video => {
-      const base = video.file.replace(".mp4", "");
-      const thumb = `${base}_img.jpg`;
-
-      const col = document.createElement("div");
-      // Two columns on mobile, four columns on desktop
-      col.className = "col-6 col-lg-3";
-
-      const a = document.createElement("a");
-      a.href = `player.html?video=${encodeURIComponent(video.file)}`;
-      a.className = "thumb card bg-dark text-white text-decoration-none";
-
-      a.innerHTML = `
-        <img src="${thumb}" class="card-img-top" alt="miniatura">
-        <div class="card-body p-2">
-          <p class="card-text mb-0">${video.title}</p>
-        </div>
-      `;
-
-      col.appendChild(a);
-      grid.appendChild(col);
-    });
+function App() {
+  const videosByYear = {};
+  videos.forEach(video => {
+    const year = `20${video.file.slice(0, 2)}`;
+    if (!videosByYear[year]) {
+      videosByYear[year] = [];
+    }
+    videosByYear[year].push(video);
   });
+
+  const years = Object.keys(videosByYear).sort((a, b) => b.localeCompare(a));
+
+  return (
+    <div className="container">
+      {years.map(year => (
+        <div key={year}>
+          <h2 className="year-heading mt-4">{year}</h2>
+          <div className="row g-3">
+            {videosByYear[year].map(video => {
+              const base = video.file.replace('.mp4', '');
+              const thumb = `${base}_img.jpg`;
+              return (
+                <div className="col-6 col-lg-3" key={video.file}>
+                  <a
+                    href={`player.html?video=${encodeURIComponent(video.file)}`}
+                    className="thumb card bg-dark text-white text-decoration-none"
+                  >
+                    <img src={thumb} className="card-img-top" alt="miniatura" />
+                    <div className="card-body p-2">
+                      <p className="card-text mb-0">{video.title}</p>
+                    </div>
+                  </a>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
